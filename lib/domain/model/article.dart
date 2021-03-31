@@ -10,6 +10,6 @@ class ArticleModel {
   final String date;
   final String content;
 
-  ArticleModel(this.source, this.author, this.title, this.description, this.url,
-      this.img, this.date, this.content);
+  ArticleModel({this.source, this.author, this.title, this.description, this.url,
+      this.img, this.date, this.content});
 }
