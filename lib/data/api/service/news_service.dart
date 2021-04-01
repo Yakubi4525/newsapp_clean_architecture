@@ -18,53 +18,64 @@ class NewsService {
   var everythingUrl = "$mainUrl/everything";
 
   Future<ApiSourceResposeModel> getSource(GetSourceBody body) async {
+    var response;
     try {
-      Response response =
-          await _dio.get(getSourcesUrl, queryParameters: body.toApi());
-      if (response.statusCode == 200) {
-        return ApiSourceResposeModel.fromJson(response.data);
-      }
-    } catch (error) {}
+      response = await _dio.get(getSourcesUrl, queryParameters: body.toApi());
+    } catch (error) {
+      rethrow;
+    }
+    if (response.statusCode == 200) {
+      return ApiSourceResposeModel.fromJson(response.data);
+    }
   }
 
   Future<ApiArticleResponseModel> getTopHeadLines(
       GetTopHeadLinesBody body) async {
+    var response;
     try {
-      Response response =
+      response =
           await _dio.get(getTopHeadlinesUrl, queryParameters: body.toApi());
-      if (response.statusCode == 200) {
-        return ApiArticleResponseModel.fromJson(response.data);
-      }
-    } catch (error) {}
+    } catch (error) {
+      rethrow;
+    }
+    if (response.statusCode == 200) {
+      return ApiArticleResponseModel.fromJson(response.data);
+    }
   }
 
   Future<ApiArticleResponseModel> search(SearchBody body) async {
+    var response;
     try {
-      Response response =
-          await _dio.get(everythingUrl, queryParameters: body.toApi());
-      if (response.statusCode == 200) {
-        return ApiArticleResponseModel.fromJson(response.data);
-      }
-    } catch (error) {}
+      response = await _dio.get(everythingUrl, queryParameters: body.toApi());
+    } catch (error) {
+      rethrow;
+    }
+    if (response.statusCode == 200) {
+      return ApiArticleResponseModel.fromJson(response.data);
+    }
   }
 
   Future<ApiArticleResponseModel> getHotNews(GetHotNewsBody body) async {
+    var response;
     try {
-      Response response =
-          await _dio.get(everythingUrl, queryParameters: body.toApi());
-      if (response.statusCode == 200) {
-        return ApiArticleResponseModel.fromJson(response.data);
-      }
-    } catch (error) {}
+      response = await _dio.get(everythingUrl, queryParameters: body.toApi());
+    } catch (error) {
+      rethrow;
+    }
+    if (response.statusCode == 200) {
+      return ApiArticleResponseModel.fromJson(response.data);
+    }
   }
 
   Future<ApiArticleResponseModel> getSourceNews(GetSourceNewsBody body) async {
+    var response;
     try {
-      Response response =
-          await _dio.get(everythingUrl, queryParameters: body.toApi());
-      if (response.statusCode == 200) {
-        return ApiArticleResponseModel.fromJson(response.data);
-      }
-    } catch (error) {}
+      response = await _dio.get(everythingUrl, queryParameters: body.toApi());
+    } catch (error) {
+      rethrow;
+    }
+    if (response.statusCode == 200) {
+      return ApiArticleResponseModel.fromJson(response.data);
+    }
   }
 }

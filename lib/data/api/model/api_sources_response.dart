@@ -11,7 +11,7 @@ class ApiSourceResposeModel {
           .map((i) => new ApiSourceModel.fromJson(i))
           .toList();
     } catch (errorValue) {
-      error = errorValue;
+      rethrow;
     }
   }
 }

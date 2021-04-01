@@ -18,31 +18,60 @@ class ApiUtil {
 
   Future<SourceResposeModel> getSource() async {
     final body = GetSourceBody();
-    final result = await _newsService.getSource(body);
+    var result;
+    try {
+      result = await _newsService.getSource(body);
+    } catch (error) {
+      rethrow;
+    }
     return SourceResponseModelMapper.fromApi(result);
   }
 
+
   Future<ArticleResponseModel> getTopHeadLines() async {
     final body = GetTopHeadLinesBody();
-    final result = await _newsService.getTopHeadLines(body);
+    var result;
+    try {
+      result = await _newsService.getTopHeadLines(body);
+    } catch (error) {
+      rethrow;
+    }
     return ArticleResponseModelMapper.fromApi(result);
   }
+
 
   Future<ArticleResponseModel> search({@required String value}) async {
     final body = SearchBody(value: value);
-    final result = await _newsService.search(body);
+    var result;
+    try {
+      result = await _newsService.search(body);
+    } catch (error) {
+      rethrow;
+    }
     return ArticleResponseModelMapper.fromApi(result);
   }
+
 
   Future<ArticleResponseModel> getHotNews() async {
     final body = GetHotNewsBody();
-    final result = await _newsService.getHotNews(body);
+    var result;
+    try {
+      result = await _newsService.getHotNews(body);
+    } catch (error) {
+      rethrow;
+    }
     return ArticleResponseModelMapper.fromApi(result);
   }
 
+
   Future<ArticleResponseModel> getSourceNews({@required String value}) async {
     final body = GetSourceNewsBody(sourceId: value);
-    final result = await _newsService.getSourceNews(body);
+    var result;
+    try {
+      result = await _newsService.getSourceNews(body);
+    } catch (error) {
+      rethrow;
+    }
     return ArticleResponseModelMapper.fromApi(result);
   }
 }

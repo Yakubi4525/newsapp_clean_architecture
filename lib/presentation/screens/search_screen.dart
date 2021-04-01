@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:news_cleaan_arch_bloc/domain/bloc_models/bloc_search_models.dart';
@@ -17,6 +19,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
   GetSearchBloc _getSearchBloc;
+  Timer _debunce;
 
   @override
   void initState() {
@@ -35,7 +38,11 @@ class _SearchScreenState extends State<SearchScreen> {
             style: TextStyle(fontSize: 14.0, color: Colors.black),
             controller: _searchController,
             onChanged: (changed) {
-              _getSearchBloc.LoadSearchModel(_searchController.text);
+              if (_debunce != null && _debunce.isActive ?? false)
+                _debunce.cancel();
+              _debunce = Timer(Duration(milliseconds: 700), () {
+                _getSearchBloc.loadSearchModel(changed);
+              });
             },
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -52,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         setState(() {
                           FocusScope.of(context).requestFocus(FocusNode());
                           _searchController.clear();
-                          _getSearchBloc.LoadSearchModel(
+                          _getSearchBloc.loadSearchModel(
                               _searchController.text);
                         });
                       })

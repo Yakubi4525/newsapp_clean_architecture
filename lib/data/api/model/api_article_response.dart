@@ -13,7 +13,7 @@ class ApiArticleResponseModel {
           .toList();
       error = "";
     } catch (errorValue) {
-      error = errorValue;
+      rethrow;
     }
   }
 }

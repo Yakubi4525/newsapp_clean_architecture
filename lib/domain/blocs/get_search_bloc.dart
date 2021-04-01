@@ -6,7 +6,7 @@ import 'package:news_cleaan_arch_bloc/internal/dependencies/repository_module.da
 import 'package:rxdart/rxdart.dart';
 
 class GetSearchBloc {
-  NewsRepository _newsRepository = RepositoryModule.newsRepository();
+  NewsRepository _newsRepository;
   final BehaviorSubject<ArticleResponseModel> _subject =
       BehaviorSubject<ArticleResponseModel>();
   GetSearchBloc(this._newsRepository);
@@ -14,13 +14,18 @@ class GetSearchBloc {
   ArticleResponseModel get defaultitem => SearchModelInitState();
   BehaviorSubject<ArticleResponseModel> get subject => _subject;
 
-  void LoadSearchModel(String value) async {
+  void loadSearchModel(String value) async {
     _subject.sink.add(SearchModelLoadingState());
-    var search_model = await _newsRepository.search(value: value);
+    var search_model;
+    try {
+      search_model = await _newsRepository.search(value: value);
+    } catch (errorS) {
+      _subject.sink.add(SearchModelErrorState(error: errorS.toString()));
+    }
     if (search_model != null) {
       _subject.sink.add(SearchModelOKState(model: search_model));
     } else {
-      _subject.sink.add(SearchModelErrorState(error: " Ошибка "));
+      _subject.sink.add(SearchModelErrorState(error: "Ошибка"));
     }
   }
 

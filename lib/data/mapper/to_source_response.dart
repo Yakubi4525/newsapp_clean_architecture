@@ -3,10 +3,10 @@ import 'package:news_cleaan_arch_bloc/data/mapper/to_source.dart';
 import 'package:news_cleaan_arch_bloc/domain/model/source_response.dart';
 
 class SourceResponseModelMapper {
-  static fromApi(ApiSourceResposeModel apiSourceResposeModel) {
+  static SourceResposeModel fromApi(ApiSourceResposeModel apiSourceResposeModel) {
     if (apiSourceResposeModel.sources == null)
       return SourceResposeModel(
-          sources: null);
+          sources: []);
     return SourceResposeModel(
         sources:
             apiSourceResposeModel.sources.map((e) => SourceMapper.fromApi(e)));
