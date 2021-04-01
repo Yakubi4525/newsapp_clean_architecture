@@ -3,7 +3,7 @@ import 'package:news_cleaan_arch_bloc/domain/model/source.dart';
 
 class SourceMapper {
   static SourceModel fromApi(ApiSourceModel apiSourceModel) {
-    if (apiSourceModel.hasError == true) return null;
+    if (apiSourceModel.hasError == true) return SourceModel();
     return SourceModel(
       id: apiSourceModel.id,
       name: apiSourceModel.name,

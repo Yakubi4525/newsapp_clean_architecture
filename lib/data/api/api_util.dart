@@ -27,7 +27,6 @@ class ApiUtil {
     return SourceResponseModelMapper.fromApi(result);
   }
 
-
   Future<ArticleResponseModel> getTopHeadLines() async {
     final body = GetTopHeadLinesBody();
     var result;
@@ -38,7 +37,6 @@ class ApiUtil {
     }
     return ArticleResponseModelMapper.fromApi(result);
   }
-
 
   Future<ArticleResponseModel> search({@required String value}) async {
     final body = SearchBody(value: value);
@@ -51,7 +49,6 @@ class ApiUtil {
     return ArticleResponseModelMapper.fromApi(result);
   }
 
-
   Future<ArticleResponseModel> getHotNews() async {
     final body = GetHotNewsBody();
     var result;
@@ -62,7 +59,6 @@ class ApiUtil {
     }
     return ArticleResponseModelMapper.fromApi(result);
   }
-
 
   Future<ArticleResponseModel> getSourceNews({@required String value}) async {
     final body = GetSourceNewsBody(sourceId: value);

@@ -29,7 +29,6 @@ class _HeadingSliderWidgetState extends State<HeadingSliderWidget> {
         builder: (BuildContext context,
             AsyncSnapshot<ArticleResponseModel> snapshot) {
           if (snapshot.hasData) {
-            print('has data');
             if (snapshot.data is TopHeadModelInintState) {
               return Container();
             } else if (snapshot.data is TopHeadModelLoadingState) {
@@ -38,11 +37,10 @@ class _HeadingSliderWidgetState extends State<HeadingSliderWidget> {
               return _buildHeadLineSliderWidget(snapshot.data);
             } else if (snapshot.data is TopHeadModelErrorState) {
               return Center(
-                child: Text(snapshot.error),
+                child: Text(snapshot.error.toString()),
               );
             }
           }
-          print('no data');
           return Container();
         });
   }
