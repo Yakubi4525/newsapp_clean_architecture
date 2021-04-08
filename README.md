@@ -4,7 +4,7 @@ news_cleaan_arch_bloc
 Работает с локальной база данных Hive
 
 Работает с api  сайта newsapi.org
-![me](https://github.com/Yakubi4525/newsapp_clean_architecture/blob/main/assets/gif/20210408_120836.gif)
+![test image size]<img src="https://github.com/Yakubi4525/newsapp_clean_architecture/blob/main/assets/gif/20210408_120836.gif" height="1280">
 
 A new Flutter project.
 
