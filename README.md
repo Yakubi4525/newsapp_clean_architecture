@@ -1,7 +1,9 @@
-# news_cleaan_arch_bloc
-# Новостное риложение с Clean Architecture и Bloc State Management
-# Работает с локальной база данных Hive
-# Работает с api с сайта newsapi.org
+news_cleaan_arch_bloc 
+Новостное риложение с Clean Architecture и Bloc State Management
+
+Работает с локальной база данных Hive
+
+Работает с api  сайта newsapi.org
 ![me](https://github.com/Yakubi4525/newsapp_clean_architecture/blob/main/assets/gif/20210408_120836.gif)
 
 A new Flutter project.
