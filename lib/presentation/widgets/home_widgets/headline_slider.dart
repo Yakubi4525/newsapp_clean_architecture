@@ -5,6 +5,7 @@ import 'package:news_cleaan_arch_bloc/domain/blocs/get_top_headlines_bloc.dart';
 import 'package:news_cleaan_arch_bloc/domain/model/article.dart';
 import 'package:news_cleaan_arch_bloc/domain/model/article_response.dart';
 import 'package:news_cleaan_arch_bloc/internal/dependencies/top_head_line_module.dart';
+import 'package:news_cleaan_arch_bloc/presentation/screens/news_detail.dart';
 import 'package:news_cleaan_arch_bloc/presentation/widgets/search_widgets/loader.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -60,12 +61,12 @@ class _HeadingSliderWidgetState extends State<HeadingSliderWidget> {
     return articles
         .map((article) => GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => DetailNews(
-                //               article: article,
-                //             )));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailNews(
+                              article: article,
+                            )));
               },
               child: Container(
                 padding: const EdgeInsets.only(

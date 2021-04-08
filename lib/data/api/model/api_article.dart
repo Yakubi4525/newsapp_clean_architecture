@@ -15,7 +15,7 @@ class ApiArticleModel {
       this.url, this.img, this.date, this.content);
 
   ApiArticleModel.fromJson(Map<String, dynamic> json)
-      : hasError = true ? json == null : false,
+      : 
         source = ApiSourceModel.fromJson(json["source"]),
         author = json["author"],
         title = json["title"],

@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:news_cleaan_arch_bloc/domain/blocs/bottom_navbar_bloc.dart';
 import 'package:news_cleaan_arch_bloc/presentation/screens/home_screen.dart';
+import 'package:news_cleaan_arch_bloc/presentation/screens/save_screen.dart';
 import 'package:news_cleaan_arch_bloc/presentation/screens/search_screen.dart';
 import 'package:news_cleaan_arch_bloc/presentation/screens/sources_screen.dart';
 import 'package:news_cleaan_arch_bloc/presentation/styles/theme.dart' as Style;
@@ -48,7 +49,11 @@ class _MainScreenState extends State<MainScreen> {
               case NavBarItem.SEARCH:
                 return SearchScreen();
                 break;
+                case NavBarItem.SAVED:
+                return SaveScreen();
+                break;
             }
+            return Container();
           },
         ),
       ),
@@ -81,26 +86,25 @@ class _MainScreenState extends State<MainScreen> {
                 onTap: _bottomNavBarBloc.pickItem,
                 items: [
                   BottomNavigationBarItem(
-                      title: Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text("Home",
-                              style: TextStyle(fontWeight: FontWeight.w600))),
-                      icon: Icon(EvaIcons.homeOutline),
-                      activeIcon: Icon(EvaIcons.home),),
+                    label: 'Home',
+                    icon: Icon(EvaIcons.homeOutline),
+                    activeIcon: Icon(EvaIcons.home),
+                  ),
                   BottomNavigationBarItem(
-                      title: Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text("Sources",
-                              style: TextStyle(fontWeight: FontWeight.w600))),
-                      icon: Icon(EvaIcons.gridOutline),
-                      activeIcon: Icon(EvaIcons.grid),),
+                    label: 'Sources',
+                    icon: Icon(EvaIcons.gridOutline),
+                    activeIcon: Icon(EvaIcons.grid),
+                  ),
                   BottomNavigationBarItem(
-                      title: Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text("Search",
-                              style: TextStyle(fontWeight: FontWeight.w600))),
-                      icon: Icon(EvaIcons.searchOutline),
-                      activeIcon: Icon(EvaIcons.search),),
+                    label: 'Search',
+                    icon: Icon(EvaIcons.searchOutline),
+                    activeIcon: Icon(EvaIcons.search),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'Saved',
+                    icon: Icon(EvaIcons.saveOutline),
+                    activeIcon: Icon(EvaIcons.save),
+                  ),
                 ],
               ),
             ),

@@ -1,127 +1,61 @@
-import 'dart:async';
-
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:news_cleaan_arch_bloc/domain/bloc_models/bloc_search_models.dart';
-import 'package:news_cleaan_arch_bloc/domain/blocs/get_search_bloc.dart';
+import 'package:news_cleaan_arch_bloc/domain/bloc_models/bloc_saved_article_models.dart';
+import 'package:news_cleaan_arch_bloc/domain/blocs/get_saved_bloc.dart';
 import 'package:news_cleaan_arch_bloc/domain/model/article.dart';
 import 'package:news_cleaan_arch_bloc/domain/model/article_response.dart';
 import 'package:news_cleaan_arch_bloc/internal/dependencies/local_module.dart';
-import 'package:news_cleaan_arch_bloc/internal/dependencies/search_bloc_module.dart';
-import 'package:news_cleaan_arch_bloc/presentation/screens/news_detail.dart';
-import 'package:news_cleaan_arch_bloc/presentation/styles/theme.dart' as Style;
+import 'package:news_cleaan_arch_bloc/internal/dependencies/saved_bloc_module.dart';
 import 'package:news_cleaan_arch_bloc/presentation/widgets/search_widgets/loader.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class SearchScreen extends StatefulWidget {
+import 'news_detail.dart';
+
+class SaveScreen extends StatefulWidget {
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  _SaveScreenState createState() => _SaveScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
-  final _searchController = TextEditingController();
-  GetSearchBloc _getSearchBloc;
-  Timer _debunce;
-
+class _SaveScreenState extends State<SaveScreen> {
+  GetSavedBloc _getSavedBloc;
   @override
   void initState() {
-    _getSearchBloc = SearchBlocModule.getBloc();
+    _getSavedBloc = SavedBlocModule.getBloc();
+    _getSavedBloc.loadSavedModel();
     super.initState();
   }
 
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-              left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-          child: TextFormField(
-            style: TextStyle(fontSize: 14.0, color: Colors.black),
-            controller: _searchController,
-            onChanged: (changed) {
-              if (_debunce != null && _debunce.isActive ?? false)
-                _debunce.cancel();
-              _debunce = Timer(Duration(milliseconds: 700), () {
-                _getSearchBloc.loadSearchModel(changed);
-              });
-            },
-            decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              filled: true,
-              fillColor: Colors.grey[100],
-              suffixIcon: _searchController.text.length > 0
-                  ? IconButton(
-                      icon: Icon(
-                        EvaIcons.backspaceOutline,
-                        color: Colors.grey[500],
-                        size: 16.0,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                          _searchController.clear();
-                          _getSearchBloc
-                              .loadSearchModel(_searchController.text);
-                        });
-                      })
-                  : Icon(
-                      EvaIcons.searchOutline,
-                      color: Colors.grey[500],
-                      size: 16.0,
-                    ),
-              enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      new BorderSide(color: Colors.grey[100].withOpacity(0.3)),
-                  borderRadius: BorderRadius.circular(30.0)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      new BorderSide(color: Colors.grey[100].withOpacity(0.3)),
-                  borderRadius: BorderRadius.circular(30.0)),
-              contentPadding: EdgeInsets.only(left: 15.0, right: 10.0),
-              labelText: "Search...",
-              hintStyle: TextStyle(
-                  fontSize: 14.0,
-                  color: Style.Colors.grey,
-                  fontWeight: FontWeight.w500),
-              labelStyle: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w500),
-            ),
-            autocorrect: false,
-          ),
-        ),
-        Expanded(
-          child: StreamBuilder(
-            stream: _getSearchBloc.subject,
-            initialData: _getSearchBloc.defaultitem,
-            builder: (BuildContext context,
-                AsyncSnapshot<ArticleResponseModel> snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data is SearchModelInitState)
-                  return Container();
-                else if (snapshot.data is SearchModelLoadingState)
-                  return buildLoadingWidget();
-                else if (snapshot.data is SearchModelOKState) {
-                  return _buildSourceNewsWidget(snapshot.data);
-                } else if (snapshot.data is SearchModelErrorState) {
+    return Scaffold(
+      body: StreamBuilder(
+        stream: _getSavedBloc.subject,
+        initialData: _getSavedBloc.defaultitem,
+        builder: (BuildContext context,
+            AsyncSnapshot<ArticleResponseModel> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data is SavedModelInitState) {
+              return Container();
+            } else {
+              if (snapshot.data is SavedModelLoadingState) {
+                return buildLoadingWidget();
+              } else {
+                if (snapshot.data is SavedModelOkState) {
+                  return _buildSavedWidget(snapshot.data);
+                } else if (snapshot.data is SavedModelInitState) {
                   return Center(
                     child: Text(snapshot.error),
                   );
                 }
               }
-              return Container();
-            },
-          ),
-        )
-      ],
+            }
+          }
+          return Container();
+        },
+      ),
     );
   }
 
-  Widget _buildSourceNewsWidget(ArticleResponseModel data) {
+  Widget _buildSavedWidget(ArticleResponseModel data) {
     List<ArticleModel> articles = data.articles;
-
     if (articles.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -145,19 +79,19 @@ class _SearchScreenState extends State<SearchScreen> {
                 color: Colors.red,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.archive_sharp, color: Colors.white),
+                child: Icon(Icons.delete_forever, color: Colors.white),
               ),
               secondaryBackground: Container(
-                color: Colors.green,
+                color: Colors.red,
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.article_sharp, color: Colors.white),
+                child: Icon(Icons.delete_forever, color: Colors.white),
               ),
               key: ValueKey<ArticleModel>(articles[index]),
               onDismissed: (DismissDirection direction) {
                 setState(() {
                   var localModule = LocalModule.getApiUtil();
-                  localModule.saveArticleModel(articles[index]);
+                  localModule.removeArticleModel(articles[index].url);
                   articles.removeAt(index);
                 });
               },

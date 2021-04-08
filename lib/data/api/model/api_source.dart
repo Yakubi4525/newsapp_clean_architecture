@@ -12,7 +12,7 @@ class ApiSourceModel {
       this.country, this.language);
 
   ApiSourceModel.fromJson(Map<String, dynamic> json)
-      : hasError = true ? json == null : false,
+      : 
         id = json["id"],
         name = json["name"],
         description = json["description"],

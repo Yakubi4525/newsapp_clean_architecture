@@ -11,5 +11,7 @@ abstract class NewsRepository {
 
   Future<ArticleResponseModel> getHotNews();
 
-  Future<ArticleResponseModel> getSourcesNews(@required String sourceId);
+  Future<ArticleResponseModel> getSourcesNews({@required String sourceId});
+
+  Future<ArticleResponseModel> getArticleFromLocal();
 }

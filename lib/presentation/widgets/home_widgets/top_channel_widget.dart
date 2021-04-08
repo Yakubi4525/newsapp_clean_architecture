@@ -6,6 +6,8 @@ import 'package:news_cleaan_arch_bloc/domain/model/source_response.dart';
 import 'package:news_cleaan_arch_bloc/internal/dependencies/sources_bloc_module.dart';
 import 'package:news_cleaan_arch_bloc/presentation/styles/theme.dart' as Style;
 import 'package:news_cleaan_arch_bloc/presentation/widgets/search_widgets/loader.dart';
+import 'package:news_cleaan_arch_bloc/presentation/screens/source_detail.dart';
+
 
 class TopChannelWidget extends StatefulWidget {
   @override
@@ -77,12 +79,12 @@ class _TopChannelWidgetState extends State<TopChannelWidget> {
               width: 80.0,
               child: GestureDetector(
                 onTap: () {
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (context) => SourceDetail(
-                  //                 source: sources[index],
-                  //               )));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SourceDetail(
+                                  source: sources[index],
+                                )));
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,

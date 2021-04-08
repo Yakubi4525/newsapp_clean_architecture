@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:news_cleaan_arch_bloc/domain/bloc_models/bloc_search_models.dart';
 import 'package:news_cleaan_arch_bloc/domain/model/article_response.dart';
 import 'package:news_cleaan_arch_bloc/domain/repository/news_repository.dart';
-import 'package:news_cleaan_arch_bloc/internal/dependencies/repository_module.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GetSearchBloc {
@@ -16,14 +14,14 @@ class GetSearchBloc {
 
   void loadSearchModel(String value) async {
     _subject.sink.add(SearchModelLoadingState());
-    var search_model;
+    var searchModel;
     try {
-      search_model = await _newsRepository.search(value: value);
+      searchModel = await _newsRepository.search(value: value);
     } catch (errorS) {
       _subject.sink.add(SearchModelErrorState(error: errorS.toString()));
     }
-    if (search_model != null) {
-      _subject.sink.add(SearchModelOKState(model: search_model));
+    if (searchModel != null) {
+      _subject.sink.add(SearchModelOKState(model: searchModel));
     } else {
       _subject.sink.add(SearchModelErrorState(error: "Ошибка"));
     }

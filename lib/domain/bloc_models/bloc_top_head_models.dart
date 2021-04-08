@@ -1,4 +1,3 @@
-import 'package:news_cleaan_arch_bloc/data/api/model/api_article_response.dart';
 import 'package:news_cleaan_arch_bloc/domain/model/article_response.dart';
 
 class TopHeadModelInintState extends ArticleResponseModel {}
