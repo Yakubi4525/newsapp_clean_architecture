@@ -79,13 +79,31 @@ class _SaveScreenState extends State<SaveScreen> {
                 color: Colors.red,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.delete_forever, color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.delete_forever, color: Colors.white),
+                    Text(
+                      'DELETE',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
               ),
               secondaryBackground: Container(
                 color: Colors.red,
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.delete_forever, color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.delete_forever, color: Colors.white),
+                    Text(
+                      'DELETE',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
               ),
               key: ValueKey<ArticleModel>(articles[index]),
               onDismissed: (DismissDirection direction) {

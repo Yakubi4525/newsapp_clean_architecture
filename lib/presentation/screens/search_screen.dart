@@ -142,16 +142,37 @@ class _SearchScreenState extends State<SearchScreen> {
           itemBuilder: (context, index) {
             return Dismissible(
               background: Container(
-                color: Colors.red,
+                color: Colors.green,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.archive_sharp, color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.archive_sharp, color: Colors.white),
+                    Text(
+                      'SAVE',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
               ),
               secondaryBackground: Container(
                 color: Colors.green,
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.article_sharp, color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.archive_sharp,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      'SAVE',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
               ),
               key: ValueKey<ArticleModel>(articles[index]),
               onDismissed: (DismissDirection direction) {
